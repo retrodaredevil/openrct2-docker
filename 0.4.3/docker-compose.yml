@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  openrct2-MyGame:
+    container_name: openrct2-MyGame
+    restart: "no"
+    user: 2000:2000
+    build:
+      context: ./cli
+      dockerfile: Dockerfile
+    ports:
+      # OpenRCT2 only uses TCP
+      - "11753:11753/tcp"
+    volumes:
+      - ./openrct2-game:/app/game
+    tty: true
+    stdin_open: true

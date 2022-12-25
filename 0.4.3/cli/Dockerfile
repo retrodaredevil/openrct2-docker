@@ -27,15 +27,15 @@ RUN apt-get update \
  && rm -rf /openrct2-install \
  && openrct2-cli --version
 
-# Set up ordinary user
-RUN useradd -m openrct2
-USER openrct2
-WORKDIR /home/openrct2
+RUN mkdir /app
+WORKDIR /app
 EXPOSE 11753
 
 # Test run and scan
 RUN openrct2-cli --version \
  && openrct2-cli scan-objects
 
+ADD run-server.sh /home/openrct2/
+
 # Done
-ENTRYPOINT ["openrct2-cli"]
+ENTRYPOINT ["/home/openrct2/run-server.sh"]
